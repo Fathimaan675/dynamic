@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+
+    <label for="cityInput">Enter City:</label>
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <button onclick="changeLocation()">Change Location</button>
+
+    <div id="weatherInfo">
+        <!-- This div will display the weather information -->
+    </div>
+
+    <script>
+        function changeLocation() {
+            var cityName = document.getElementById('cityInput').value;
+
+            if (cityName.trim() !== '') {
+                var currentUrl = "https://api.openweathermap.org/data/2.5/weather?q=kakkanad&appid=8ac5c4d57ba6a4b3dfcf622700447b1e&units=metric";
+                var url = new URL(currentUrl);
+
+                // Update the 'q' parameter value with the user-inputted city name
+                url.searchParams.set('q', cityName);
+
+                // Update the URL of the webpage
+                window.history.pushState({}, '', url.href);
+
+                // Fetch and display weather information based on the updated URL
+                fetchWeather(url.href);
+            } else {
+                alert("Please enter a city name.");
+            }
+        }
+
+        function fetchWeather(apiUrl) {
+            // Perform any API call or fetch data based on the updated URL
+            // For demonstration purposes, let's just update the content in the 'weatherInfo' div
+            document.getElementById('weatherInfo').innerHTML = "Fetching weather information for " + apiUrl;
+        }
+    </script>
+
+</body>
+</html>
